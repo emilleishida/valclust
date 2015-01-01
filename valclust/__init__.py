@@ -2,4 +2,7 @@
 # Clustering Validation and Analysis
 # Machine Learning Application
 
-__version__ = '1.0'
+
+from .cluster import Cluster
+
+__version__ = '0.1.0'

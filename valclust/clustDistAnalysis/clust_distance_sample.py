@@ -3,8 +3,10 @@
 
 import numpy as np
 import pyprind
+import sys
+from ..cluster import Cluster
 
-class ClusterDistanceSampler():
+class ClusterDistanceSampler(Cluster):
     """
     Class for sampling intra and inter cluster distances
 
