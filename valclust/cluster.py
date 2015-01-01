@@ -20,5 +20,11 @@ class Cluster(object):
 	tup = np.unique(y, return_counts = T)
 	return(np.asarray(tup).T)
 
-    def cluster_size(self, y, inx):
+    def members(self, y, cinx):
+	"""
+	Return a numpy array for the indecies of all 
+	members for a specific cluster indexed by cinx.
+	
+	"""
+	
         
