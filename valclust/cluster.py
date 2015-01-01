@@ -8,7 +8,7 @@ class Cluster(object):
 
 	n_distnict(self, y): the number of distinct clusters
 	cluster_sizes(self, y): the sizes of each cluster in a numpy ndarray
-	members(self, y, cinx): the indeces of members of a particular cluster cinx
+	get_members(self, y, cinx): the indeces of members of a particular cluster cinx
 
     """
 
@@ -28,7 +28,7 @@ class Cluster(object):
 	tup = np.unique(y, return_counts = T)
 	return(np.asarray(tup).T)
 
-    def members(self, y, cinx):
+    def get_members(self, y, cinx):
 	"""
 	Returns a numpy array for the indecies of all 
 	members for a specific cluster indexed by cinx.

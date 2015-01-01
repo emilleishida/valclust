@@ -10,7 +10,7 @@ setup(name = "valclust",
     author_email = "vmirjalily@gmail.com",
     url = "https://github.com/mirjalil/valclust",
 
-    packages = ['valclust', 'valclust.clustDistAnalysis'],
+    packages = ['valclust', 'valclust.clusterSeparation'],
 
     #package *needs* these files.
     package_data = {'valclust':[]},

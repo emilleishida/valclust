@@ -5,5 +5,5 @@
 
 from ..cluster import Cluster
 
-from .clust_distance_sample import ClusterDistanceSampler
+from .pdist_sampling import PairwiseDistanceSampler
 

@@ -3,5 +3,5 @@ README
 setup.py
 valclust/__init__.py
 valclust/cluster.py
-valclust/clustDistAnalysis/__init__.py
-valclust/clustDistAnalysis/clust_distance_sample.py
+valclust/clusterSeparation/__init__.py
+valclust/clusterSeparation/pdist_sampling.py
