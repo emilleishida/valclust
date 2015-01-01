@@ -29,7 +29,7 @@ class PairwiseDistanceSampler(Cluster):
 	"""
 	print ("Calling sample function!")
 
-	X_clust = X[self._get_members(y, cinx),:]
+	X_clust = X[self.get_members(y, cinx),:]
 	nsize,ndim = X_clust.shape
 	print("Cluster Size: %d   Numb. of Dimensions: %d" %(nsize, ndim))
 
