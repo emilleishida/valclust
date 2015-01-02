@@ -20,5 +20,11 @@ def test_intra_sampling():
     ds2 = sam_obj.intra_sampler(d, y, 2, size=None)
     assert(ds2.shape[0]) == 6
 
+
+    d = np.array(["TTTA", "TGTT", "TAAT", "GTTA", "GGCG"])
+    y = np.array(["c1", "c1", "c1", "c1", "c2"])
+    ds3 = sam_obj.intra_sampler(d, y, "c1", size=None, method="editdist")
+    assert(ds3.shape[0]) == 6
+
 if __name__ == '__main__':
-    unittest.main()
+    test_intra_sampling()

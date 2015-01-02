@@ -28,7 +28,7 @@ class Cluster(object):
 	tup = np.unique(y, return_counts = T)
 	return(np.asarray(tup).T)
 
-    def get_members(self, y, cinx):
+    def _get_members(self, y, cinx):
 	"""
 	Returns a numpy array for the indecies of all 
 	members for a specific cluster indexed by cinx.
@@ -37,3 +37,12 @@ class Cluster(object):
 	allindx = np.arange(0, y.shape[0])
 	return (allindx[y == cinx])
         
+
+    def _get_non_members(self, y, cinx):
+	"""
+	Returns a numpy array for the indecies of all
+	data points that DO NOT belong to cluster cinx.
+
+	"""
+	allindx = np.arange(0, y.shape[0])
+	return (allindx[y != cinx])
