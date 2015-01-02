@@ -74,16 +74,23 @@ class PairwiseDistanceSampler(Cluster):
 	rest_indx = self._get_non_members(y, cinx)
 
         nsize_memb = memb_indx.shape[0]
-	nsize_rest = memb_indx.shape[0]
+	nsize_rest = rest_indx.shape[0]
 
 	totpw = size
 	if totpw is None:
 	    totpw = nsize_memb * nsize_rest
 
-	sys.stderr.write("##\tCluster %s w.r.t. rest --> Size: %d x Size: %dTotal pairs: %d\n" 
-		%(cinx, nsize_memb, nsize_rest, totpw)
+	sys.stderr.write("##\tCluster %s w.r.t. rest --> Size: %d x %d  Total pairs: %d\n" 
+		%(cinx, nsize_memb, nsize_rest, totpw))
 
-	rand_memb_ind = np.random.randint(low=0, high=nsize_memb, size=size)
-	rand_rest_ind = np.random.randint(low=0, high=nsize_memb, size=size)
-	
-	
+	rand_memb_ind = np.random.randint(low=0, high=nsize_memb, size=totpw)
+	rand_rest_ind = np.random.randint(low=0, high=nsize_memb, size=totpw)
+
+	dary = np.zeros(shape=totpw, dtype='float')
+
+	n = 0
+	for i,j in zip(rand_memb_ind, rand_rest_ind):
+	    dary[n] = cal_distance(X[i], X[j], method=method)
+	    n += 1
+
+	return(dary)
