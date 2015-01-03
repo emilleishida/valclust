@@ -11,6 +11,15 @@ Clustering Validation and Analysis
     3. Relative indecies: comparing the clustering results obtained from different algorithms, or dissimilarity measures 
 
 
+## Internal Indecies:
+
+  * Silhouette Index
+  * Davis-Bouldin Index
+  * Calinski-Harabasz Index
+  * Dunn Index
+  * RMSSTD Index
+
+
 ## clusterSeparation
 
   * Falls within the category of internal indecies
