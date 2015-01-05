@@ -54,7 +54,7 @@ class Cluster(object):
 	allindx = np.arange(0, self.n)
 	return (allindx[self.y != cinx])
 
-    def cal_distance(i, j, method='euclidean'):
+    def distance(self, i, j, method='euclidean'):
         x1 = self.X[i]
         x2 = self.X[j]
         if method == 'euclidean':

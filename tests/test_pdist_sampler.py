@@ -1,6 +1,6 @@
 import numpy as np
 import sys
-from valclust.clusterSeparation import PairwiseDistanceSampler as pds
+from valclust.ExternalValidity import PairwiseDistanceSampler as pds
 
 
 def test_intra_sampling():
@@ -13,18 +13,19 @@ def test_intra_sampling():
     d = np.vstack((d1, d2))
     y = np.array([1,1,1, 2,2,2,2])
 
-    sam_obj = pds()
+    sam_obj = pds(d, y)
 
-    ds1 = sam_obj.intra_sampler(d, y, 1, size=None)
+    ds1 = sam_obj.intra_sampler(1, size=None)
     assert(ds1.shape[0]) == 3
 
-    ds2 = sam_obj.intra_sampler(d, y, 2, size=None)
+    ds2 = sam_obj.intra_sampler(2, size=None)
     assert(ds2.shape[0]) == 6
 
 
     d = np.array(["TTTA", "TGTT", "TAAT", "GTTA", "GGCG"])
     y = np.array(["c1", "c1", "c1", "c1", "c2"])
-    ds3 = sam_obj.intra_sampler(d, y, "c1", size=None, method="editdist")
+    ds3 = sam_obj.intra_sampler("c1", size=None, method="editdist")
+    sys.stderr.write("**** %d\n" %(ds3.shape[0]))
     assert(ds3.shape[0]) == 6
 
 
@@ -38,9 +39,9 @@ def test_inter_sampling():
     d = np.vstack((d1, d2))
     y = np.array([1,1,1, 2,2,2,2])
 
-    sam_obj = pds()
+    sam_obj = pds(d, y)
 
-    ds1 = sam_obj.inter_sampler(d, y, 1, size=None)
+    ds1 = sam_obj.inter_sampler(1, size=None)
     assert(ds1.shape[0]) == 12
 
 

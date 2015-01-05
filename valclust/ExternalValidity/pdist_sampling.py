@@ -102,7 +102,7 @@ class PairwiseDistanceSampler(Cluster):
 	    dary = np.zeros(shape=totpw, dtype='float')
             n = 0 
             for i,j in zip(rand_memb_ind, rand_rest_ind):
-                dary[n] = self.cal_distance(i, j, method=method)
+                dary[n] = self.distance(i, j) #, method=method)
                 n += 1
 	    return(dary)
 	
@@ -110,7 +110,7 @@ class PairwiseDistanceSampler(Cluster):
 	    # Save the output in the given file
 	    with open(outfile, 'w') as fp:
 	       for i,j in zip(rand_memb_ind, rand_rest_ind):
-	          dist_ij = self.cal_distance(i, j, method=method)
+	          dist_ij = self.distance(i, j, method=method)
 	          fp.write("%-d %-d %.4f\n" %(i, j, dist_ij))
 
 	    return(None)
