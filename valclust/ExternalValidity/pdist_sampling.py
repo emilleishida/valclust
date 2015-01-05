@@ -27,7 +27,10 @@ class PairwiseDistanceSampler(Cluster):
 
     """
 
-    def intra_sampler(self, X, y, cinx, size=None, method='euclidean', return_ind=False, outfile=None):
+    def __init__(self, X, y):
+        self.set_data(X, y)
+
+    def intra_sampler(self, cinx, size=None, method='euclidean', return_ind=False, outfile=None):
 	"""
 	Sampling intra-cluster pairwise distances.
 
@@ -40,7 +43,7 @@ class PairwiseDistanceSampler(Cluster):
 
 	"""
 
-	X_clust = X[self._get_members(y, cinx)]
+	X_clust = self.X[self._get_members(cinx)]
 
         nsize = X_clust.shape[0]
 
@@ -70,15 +73,15 @@ class PairwiseDistanceSampler(Cluster):
 
 
 
-    def inter_sampler(self, X, y, cinx, size=None, method='euclidean', return_ind=False, outfile=None):
+    def inter_sampler(self, cinx, size=None, method='euclidean', return_ind=False, outfile=None):
 	"""
 	Sampling inter-cluster pairwise distances 
 	for a particular cluster (cinx) with respect to all other clusters.
 
 
 	"""
-        memb_indx = self._get_members(y, cinx)
-	rest_indx = self._get_non_members(y, cinx)
+        memb_indx = self._get_members(cinx)
+	rest_indx = self._get_non_members(cinx)
 
         nsize_memb = memb_indx.shape[0]
 	nsize_rest = rest_indx.shape[0]
@@ -99,7 +102,7 @@ class PairwiseDistanceSampler(Cluster):
 	    dary = np.zeros(shape=totpw, dtype='float')
             n = 0 
             for i,j in zip(rand_memb_ind, rand_rest_ind):
-                dary[n] = cal_distance(X[i], X[j], method=method)
+                dary[n] = self.cal_distance(i, j, method=method)
                 n += 1
 	    return(dary)
 	
@@ -107,7 +110,7 @@ class PairwiseDistanceSampler(Cluster):
 	    # Save the output in the given file
 	    with open(outfile, 'w') as fp:
 	       for i,j in zip(rand_memb_ind, rand_rest_ind):
-	          dist_ij = cal_distance(X[i], X[j], method=method)
+	          dist_ij = self.cal_distance(i, j, method=method)
 	          fp.write("%-d %-d %.4f\n" %(i, j, dist_ij))
 
 	    return(None)

@@ -12,37 +12,55 @@ class Cluster(object):
 
     """
 
-    def __init__(self):
-        self.ary = None
+    def __init__(self, X=None, y=None):
+        self.X = X
+        self.y = y
+        self.n = y.shape[0]
 
-    def n_distinct(self, y):
+    def set_data(self, X, y):
+        self.X = X
+        self.y = y
+        self.n = y.shape[0]
+
+    def n_distinct(self):
 	"""
 	Returns  the number of distinct clusters.
 	"""
-        return(np.unique(y).shape[0])
+        return(np.unique(self.y).shape[0])
 
-    def cluster_sizes(self, y):
+    def cluster_sizes(self):
 	"""
 	Returns the sizes of each cluster in a numpy ndarray.
 	"""
-	tup = np.unique(y, return_counts = T)
+	tup = np.unique(self.y, return_counts = T)
 	return(np.asarray(tup).T)
 
-    def _get_members(self, y, cinx):
+    def _get_members(self, cinx):
 	"""
 	Returns a numpy array for the indecies of all 
 	members for a specific cluster indexed by cinx.
 	
 	"""
-	allindx = np.arange(0, y.shape[0])
-	return (allindx[y == cinx])
+	allindx = np.arange(0, self.n)
+	return (allindx[self.y == cinx])
         
 
-    def _get_non_members(self, y, cinx):
+    def _get_non_members(self, cinx):
 	"""
 	Returns a numpy array for the indecies of all
 	data points that DO NOT belong to cluster cinx.
 
 	"""
-	allindx = np.arange(0, y.shape[0])
-	return (allindx[y != cinx])
+	allindx = np.arange(0, self.n)
+	return (allindx[self.y != cinx])
+
+    def cal_distance(i, j, method='euclidean'):
+        x1 = self.X[i]
+        x2 = self.X[j]
+        if method == 'euclidean':
+            diff = x1 - x2
+            sq_diff = diff * diff
+            return(np.sqrt(np.sum(sq_diff)))
+        elif method == 'editdist':
+            return(editdist.distance(x1, x2))
+
