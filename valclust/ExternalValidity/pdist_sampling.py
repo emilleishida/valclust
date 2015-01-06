@@ -68,7 +68,7 @@ class PairwiseDistanceSampler(Cluster):
 		   dist_ij = cal_distance(X_clust[i], X_clust[j], method=method)
 		   fp.write("%-d %-d %.4f\n" %(i, j, dist_ij))
 
-	return(None)
+	    return(None)
 
 
 

@@ -22,10 +22,13 @@ def test_intra_sampling():
     assert(ds2.shape[0]) == 6
 
 
+    #def test_intra_Sampling_string():
     d = np.array(["TTTA", "TGTT", "TAAT", "GTTA", "GGCG"])
     y = np.array(["c1", "c1", "c1", "c1", "c2"])
+
+    sam_obj = pds(d, y)
+
     ds3 = sam_obj.intra_sampler("c1", size=None, method="editdist")
-    sys.stderr.write("**** %d\n" %(ds3.shape[0]))
     assert(ds3.shape[0]) == 6
 
 

@@ -16,6 +16,27 @@ def test_get_members():
     for i in range(5):
 	assert(a1[i] == a1_true[i])
 
+
+def test_get_members_string():
+    X = np.array(['TATT', 'TTTA', 'GACG', 'GCGT', 'ATTA', 'TAAT', 'GCGG'])
+    y = np.array(['c1', 'c1', 'c2', 'c2', 'c1', 'c1', 'c2'])
+
+    cobj = valclust.cluster.Cluster(X, y)
+    a1 = cobj._get_members('c1')
+    a2 = cobj._get_members('c2')
+
+    assert (a1.shape[0] == 4)
+    assert (a2.shape[0] == 3)
+
+    a1_true = [0,1,4,5]
+    for i in range(4):
+       assert(a1[i] == a1_true[i])
+
+    a2_true = [2,3,6]
+    for i in range(3):
+       assert(a2[i] == a2_true[i])
+
+
 def test_get_non_members():
     X = np.array([1,1,1,1,1,1,1,1,1])
     a = np.array([1,1,1,2,3,1,1,2,3])
