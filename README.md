@@ -40,6 +40,6 @@ Measuring te quality of clusterings by calculating the intra-cluster and inter-c
    Example
 
 ```
-from valclust.clustDistAnalysis import ClusterDistanceSampler as cds
+from valclust.clusterSeparation import ClusterDistanceSampler as cds
 
 ```
