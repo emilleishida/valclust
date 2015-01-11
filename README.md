@@ -20,6 +20,10 @@ Clustering Validation and Analysis
   * RMSSTD Index
 
 
+## External Indecies
+
+  * Cosine Similarity or Correlation between two clustering $cor<>$
+
 ## clusterSeparation
 
   * Falls within the category of internal indecies
