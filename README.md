@@ -18,7 +18,15 @@ Clustering Validation and Analysis
   * Calinski-Harabasz Index
   * Dunn Index
   * RMSSTD Index
+  * Gap Statistic (finding the number of clusters)
 
+
+### Similarity Measures between Different Groupings
+
+  * Cosine Similarity or Correlation 
+  * Matching Coefficient
+  * Jaccard Coefficient
+  
 
 ## clusterSeparation
 
