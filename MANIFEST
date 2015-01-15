@@ -3,5 +3,6 @@ README
 setup.py
 valclust/__init__.py
 valclust/cluster.py
-valclust/clusterSeparation/__init__.py
-valclust/clusterSeparation/pdist_sampling.py
+valclust/ExternalValidity/__init__.py
+valclust/ExternalValidity/pdist_sampling.py
+valclust/ExternalValidity/silhouette_sampling.py
