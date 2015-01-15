@@ -15,6 +15,12 @@ setup(name = "valclust",
 
     #package *needs* these files.
     package_data = {'valclust':[]},
+    classifiers = [
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+	"Intended Audience :: Information Technology",
+	"Operating System :: OS Independent",
+    ],
 
     scripts = [],
     long_description = """
