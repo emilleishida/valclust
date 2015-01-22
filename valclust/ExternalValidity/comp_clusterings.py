@@ -33,4 +33,7 @@ class CompareCluster(Cluster):
 
 
     def totalPurity(self, cinx, g):
-        pass
+        """
+	"""
+	for k in np.unique(y_arr):
+	   sys.stderr.write("%d %f\n"%(k, obj.clusterPurity(k, g_arr)))
