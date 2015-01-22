@@ -50,3 +50,15 @@ def test_get_non_members():
     anot1_true = [3,4,7,8]
     for i in range(4):
         assert(anot1[i] == anot1_true[i])
+
+
+def test_get_num_singletons():
+    X = np.array([1,1,1,1,1,1,1,1,1,1,1,1])
+    a = np.array([1,1,0,2,-1,0,1,0,-1,0,1,2])
+
+    cobj = valclust.cluster.Cluster(X, a)
+    nsing = cobj._num_singletons(a)
+    assert (nsing == 2)
+
+    nsing = cobj._num_singletons(a, indicator=0)
+    assert (nsing == 4)
