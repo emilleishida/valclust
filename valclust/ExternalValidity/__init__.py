@@ -5,3 +5,4 @@
 
 from ..cluster import Cluster
 
+from .comp_clusterings import CompareCluster
