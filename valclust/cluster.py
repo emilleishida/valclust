@@ -64,3 +64,8 @@ class Cluster(object):
         elif method == 'editdist':
             return(editdist.distance(x1, x2))
 
+    def _num_singltons(self, cinx, indicator=-1):
+	"""Finding the number of singletons
+	   specified by indicator [default=-1]
+	"""
+        return (np.sum(cinx == indicator)) 
