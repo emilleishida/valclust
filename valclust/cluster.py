@@ -64,8 +64,16 @@ class Cluster(object):
         elif method == 'editdist':
             return(editdist.distance(x1, x2))
 
-    def _num_singletons(self, cinx, indicator=-1):
+    def _num_singletons(self, indicator=-1):
 	"""Finding the number of singletons
 	   specified by indicator [default=-1]
 	"""
-        return (np.sum(cinx == indicator)) 
+        return (np.sum(self.y == indicator))
+
+    def summary(self, sing_indicator=-1):
+        """ Gives a summary statistics on clusters.
+	"""
+	print ("Number of singletons: %d"%(_num_singletons(sing_indicator)))
+	print ("Number of clusters: %d"%(n_distinct()))
+
+	return (None)

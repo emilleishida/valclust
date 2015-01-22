@@ -57,8 +57,8 @@ def test_get_num_singletons():
     a = np.array([1,1,0,2,-1,0,1,0,-1,0,1,2])
 
     cobj = valclust.cluster.Cluster(X, a)
-    nsing = cobj._num_singletons(a)
+    nsing = cobj._num_singletons()
     assert (nsing == 2)
 
-    nsing = cobj._num_singletons(a, indicator=0)
+    nsing = cobj._num_singletons(indicator=0)
     assert (nsing == 4)
