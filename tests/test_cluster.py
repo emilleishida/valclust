@@ -62,3 +62,5 @@ def test_get_num_singletons():
 
     nsing = cobj._num_singletons(indicator=0)
     assert (nsing == 4)
+
+    cobj.summary()

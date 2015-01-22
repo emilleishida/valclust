@@ -73,7 +73,7 @@ class Cluster(object):
     def summary(self, sing_indicator=-1):
         """ Gives a summary statistics on clusters.
 	"""
-	print ("Number of singletons: %d"%(_num_singletons(sing_indicator)))
-	print ("Number of clusters: %d"%(n_distinct()))
+	print ("Number of singletons: %d"%(self._num_singletons(sing_indicator)))
+	print ("Number of clusters: %d"%(self.n_distinct()))
 
 	return (None)
