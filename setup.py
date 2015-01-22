@@ -10,7 +10,7 @@ setup(name = "valclust",
     author_email = "vmirjalily@gmail.com",
     url = "https://github.com/mirjalil/valclust",
 
-    packages = ['valclust', 'valclust.ExternalValidity',
+    packages = ['valclust', 'valclust.InternalValidity', 'valclust.ExternalValidity',
 	],
 
     #package *needs* these files.

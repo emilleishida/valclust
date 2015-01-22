@@ -1,6 +1,6 @@
 import numpy as np
 import sys
-from valclust.ExternalValidity import PairwiseDistanceSampler as pds
+from valclust.InternalValidity import PairwiseDistanceSampler as pds
 
 
 def test_intra_sampling():

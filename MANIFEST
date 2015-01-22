@@ -4,5 +4,7 @@ setup.py
 valclust/__init__.py
 valclust/cluster.py
 valclust/ExternalValidity/__init__.py
-valclust/ExternalValidity/pdist_sampling.py
-valclust/ExternalValidity/silhouette_sampling.py
+valclust/ExternalValidity/comp_clusterings.py
+valclust/InternalValidity/__init__.py
+valclust/InternalValidity/pdist_sampling.py
+valclust/InternalValidity/silhouette_sampling.py

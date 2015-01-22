@@ -5,4 +5,3 @@
 
 from ..cluster import Cluster
 
-
