@@ -32,10 +32,13 @@ class CompareCluster(Cluster):
 	return (largest / float(memg.shape[0]))
 
 
-    def totalPurity(self, cinx, g, singleton=-1):
+    def totalPurity(self, g, singleton=-1):
         """ Compute the total purity measure w.r.t. g partitioning
 		singleton is the indicator for singletons.
 	"""
-	
-	for k in np.unique(y_arr):
-	   sys.stderr.write("%d %f\n"%(k, obj.clusterPurity(k, g_arr)))
+	res, n = 0.0, 0
+	for k in np.unique(self.y):
+	   if (k != singleton):
+	       res += self.clusterPurity(k, g)
+	       n += 1
+	return (res/n)

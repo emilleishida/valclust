@@ -4,8 +4,8 @@ import valclust.ExternalValidity as EV
 import sys
 
 def test_purity():
-    y = np.array([1,1,1,2,2,2,2])
-    g = np.array([5,5,5,7,7,9,9])
+    y = np.array([1,1,1,2,2,2,2,-1])
+    g = np.array([5,5,5,7,7,9,9,2])
 
     obj = EV.CompareCluster(X=None, y=y)
 
@@ -15,3 +15,6 @@ def test_purity():
 
     r2 = obj.clusterPurity(2, g)
     assert (r2 == 0.5)
+
+    tot = obj.totalPurity(g, singleton=-1)
+    assert (tot == 0.75)
