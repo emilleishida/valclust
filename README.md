@@ -43,3 +43,27 @@ Measuring te quality of clusterings by calculating the intra-cluster and inter-c
 from valclust.clusterSeparation import ClusterDistanceSampler as cds
 
 ```
+
+  **Example: External Validaity Indecies**
+
+```
+import valclust
+import valclust.ExternalValidity as EV
+
+y = np.array([1,1,1,2,2,2,2,-1])
+g = np.array([5,5,5,7,7,9,9,2])
+
+obj = EV.CompareCluster(X=None, y=y)
+
+for i in np.unique(y):
+   res = obj.clusterPurity(i, g)
+   print("Purity for cluster %d ==> %.4f"%(i, res))
+```
+Output: 
+```
+Purity for cluster -1 ==> 1.0000
+Purity for cluster 1 ==> 1.0000
+Purity for cluster 2 ==> 0.5000
+
+
+```
