@@ -37,16 +37,44 @@ Measuring te quality of clusterings by calculating the intra-cluster and inter-c
 
 
 
-   Example
+  **Example: Internal Validity**
 
 ```
-from valclust.clusterSeparation import ClusterDistanceSampler as cds
+import numpy as np
+from valclust.InternalValidity import PairwiseDistanceSampler as pds
+
+np.random.seed(1234)
+
+d1 = np.random.multivariate_normal(mean=[-1,1], cov=[[1, 0],[0, 1]], size=3)
+d2 = np.random.multivariate_normal(mean=[2,-2], cov=[[1, 0],[0, 1]], size=4)
+
+d = np.vstack((d1, d2))
+y = np.array([1,1,1, 2,2,2,2])
+
+sam_obj = pds(d, y)  # sampler object
+
+# distance among points within cluster 1
+ds1_intra = sam_obj.intra_sampler(1, size=None) 
+# distance bwtween points from cluster 1 and the rest
+ds1_inter = sam_obj.inter_sampler(1, size=None)
 
 ```
+Output:
+```
+>>> ds1_intra
+array([ 0.        ,  2.46500264,  0.        ])
+
+>>> ds1_inter
+array([ 4.17855077,  5.17794181,  5.176349  ,  7.17877856,  4.17855077,
+        4.11556509,  6.43752761,  5.17794181,  7.17877856,  4.78430904,
+        7.53358227,  7.17877856])
+```
+
 
   **Example: External Validaity Indecies**
 
 ```
+import numpy as np
 import valclust
 import valclust.ExternalValidity as EV
 

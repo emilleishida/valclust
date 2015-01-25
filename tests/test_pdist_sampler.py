@@ -49,6 +49,3 @@ def test_inter_sampling():
 
 
 
-
-if __name__ == '__main__':
-    test_intra_sampling()
