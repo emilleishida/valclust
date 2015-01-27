@@ -42,3 +42,32 @@ class CompareCluster(Cluster):
 	       res += self.clusterPurity(k, g)
 	       n += 1
 	return (res/n)
+
+    def normalizedMutualInfo(self, g):
+	""" Compute Normalized Mutual Information (NMI) 
+		w.r.t. ground truth partitioning.
+	"""
+	n = self.n
+
+	y_uniq = self.unique()
+
+	gc = Cluster(X=None, y=g)
+	g_uniq = gc.unique()
+
+	y_csize = self.cluster_sizes()
+	g_csize = gc.cluster_sizes()
+
+
+	sval = 0.0
+	for i in y_uniq:
+	    imembers = self._get_members(i)
+
+	    isize = y_csize[y_csize[:,0]==i,1]
+	    gsub = g[imembers]
+
+	    for j in np.unique(gsub):
+		size_ij = np.sum(gsub == j)
+		jsize = g_csize[g_csize[:,0]==j,1]
+		sval += size_ij/float(n) * np.log(size_ij * n/float(isize * jsize))
+
+	return(sval)

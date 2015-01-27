@@ -28,11 +28,14 @@ class Cluster(object):
 	"""
         return(np.unique(self.y).shape[0])
 
+    def unique(self):
+	return(np.unique(self.y))
+
     def cluster_sizes(self):
 	"""
 	Returns the sizes of each cluster in a numpy ndarray.
 	"""
-	tup = np.unique(self.y, return_counts = T)
+	tup = np.unique(self.y, return_counts = True)
 	return(np.asarray(tup).T)
 
     def _get_members(self, cinx):

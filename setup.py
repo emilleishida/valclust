@@ -4,7 +4,7 @@ from distutils.core import setup
 files = ["things/*"]
 
 setup(name = "valclust",
-    version = "0.1.0",
+    version = "0.1.1",
     description = "Clustering Validation and Analysis",
     author = "Vahid Mirjalili",
     author_email = "vmirjalily@gmail.com",
@@ -25,7 +25,7 @@ setup(name = "valclust",
     scripts = [],
     long_description = """
 
-A collection of tools for validation and analysis of clutering solutions.
+A collection of tools for validation and analysis of clustering results.
 
  Contact
 =============

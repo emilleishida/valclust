@@ -18,3 +18,15 @@ def test_purity():
 
     tot = obj.totalPurity(g, singleton=-1)
     assert (tot == 0.75)
+
+def test_NMI():
+    y = np.array([1,1,1,2,2,2,2,3])
+    g = np.array([5,5,5,7,7,5,5,7])
+
+    obj = EV.CompareCluster(X=None, y=y)
+
+
+    nmi = obj.normalizedMutualInfo(g)
+    sys.stderr.write("NMI : %f"%(nmi))
+    assert(nmi == 0.3149896)
+
