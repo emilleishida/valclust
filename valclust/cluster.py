@@ -16,12 +16,13 @@ class Cluster(object):
         self.X = X
         self.y = y
         self.n = y.shape[0]
-	self.csize = self.cluster_sizes()
+	self.clsize = self.cluster_sizes()
 
     def set_data(self, X, y):
         self.X = X
         self.y = y
         self.n = y.shape[0]
+	self.clsize = self.cluster_sizes()
 
     def n_distinct(self):
 	"""
@@ -79,7 +80,7 @@ class Cluster(object):
 	"""
 	s = 0.0
 	nt = float(self.n)
-	for k in clsizes[:,1]:
+	for k in self.clsize[:,1]:
 	    s -= k/nt * np.log(k/nt)
 	return(s)
 

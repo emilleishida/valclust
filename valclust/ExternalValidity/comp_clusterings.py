@@ -71,4 +71,4 @@ class CompareCluster(Cluster):
 		print("%d %d \t %d %d --> %d  %f" %(i, isize, j, jsize, size_ij, size_ij * n/float(isize * jsize)))
 		sval += size_ij/float(n) * np.log(size_ij * n/float(isize * jsize))
 
-	return(sval)
+	return(2.0 * sval / (self.entropy() + gc.entropy()))
