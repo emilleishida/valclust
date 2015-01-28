@@ -68,6 +68,7 @@ class CompareCluster(Cluster):
 	    for j in np.unique(gsub):
 		size_ij = np.sum(gsub == j)
 		jsize = g_csize[g_csize[:,0]==j,1]
+		print("%d %d \t %d %d --> %d  %f" %(i, isize, j, jsize, size_ij, size_ij * n/float(isize * jsize)))
 		sval += size_ij/float(n) * np.log(size_ij * n/float(isize * jsize))
 
 	return(sval)

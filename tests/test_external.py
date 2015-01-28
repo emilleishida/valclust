@@ -25,6 +25,9 @@ def test_NMI():
 
     obj = EV.CompareCluster(X=None, y=y)
 
+    nmi = obj.normalizedMutualInfo(y) ## Comparre with itself
+    sys.stderr.write("NMI : %f"%(nmi))
+    assert (nmi == 1.0)
 
     nmi = obj.normalizedMutualInfo(g)
     sys.stderr.write("NMI : %f"%(nmi))
