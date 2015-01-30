@@ -74,6 +74,14 @@ class CompareCluster(Cluster):
 
 	return(2.0 * sval / (self.entropy() + gc.entropy()))
 
+    def MCC(self, g):
+	""" Compute Matthew's Correlation Coefficient:
+		MCC = (TP*TN - FP*FN) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
+	"""
+	self.contingency(g)
+	tp,fp,tn,fn = self.tp, self.fp, self.tn, self.fn
+	return ((tp*tn - fp*fn)/sqrt((tp+fp)*(tp+fn)*(tn+fp)*(tn+fn)))
+
     def _contingency(self, g):
 	""" Compute TP, FP, TN, and FN
 		for any pair of points.
