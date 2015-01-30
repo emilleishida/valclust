@@ -74,7 +74,7 @@ class CompareCluster(Cluster):
 
 	return(2.0 * sval / (self.entropy() + gc.entropy()))
 
-    def _calContingency(self, g):
+    def _contingency(self, g):
 	""" Compute TP, FP, TN, and FN
 		for any pair of points.
 	"""
@@ -89,5 +89,5 @@ class CompareCluster(Cluster):
 		    if size_ij >= 2:
 			tp += sp.binom(size_ij, 2)
 	self.tp = tp
-	self.fp = tp_p - tp
+	self.fp = tp_fp - tp
 
