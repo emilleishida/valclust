@@ -54,13 +54,15 @@ def test_get_non_members():
 
 def test_get_num_singletons():
     X = np.array([1,1,1,1,1,1,1,1,1,1,1,1])
-    a = np.array([1,1,0,2,-1,0,1,0,-1,0,1,2])
+    a = np.array([1,1,0,2,3,0,1,0,4,0,1,2])
 
     cobj = valclust.cluster.Cluster(X, a)
     nsing = cobj._num_singletons()
     assert (nsing == 2)
 
-    nsing = cobj._num_singletons(indicator=0)
-    assert (nsing == 4)
+    a = np.arange(X.shape[0])
+    cobj = valclust.cluster.Cluster(X, a)
+    nsing = cobj._num_singletons()
+    assert (nsing == X.shape[0])
 
     cobj.summary()
