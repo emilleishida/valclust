@@ -31,5 +31,5 @@ def test_NMI():
 
     nmi = obj.normalizedMutualInfo(g)
     sys.stderr.write("NMI : %f"%(nmi))
-    assert(nmi == 0.3149896)
+    assert(int(nmi*10000) == 3851)
 

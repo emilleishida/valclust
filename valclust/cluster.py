@@ -13,10 +13,7 @@ class Cluster(object):
     """
 
     def __init__(self, X=None, y=None):
-        self.X = X
-        self.y = y
-        self.n = y.shape[0]
-	self.clsize = self.cluster_sizes()
+	self.set_data(X, y)
 
     def set_data(self, X, y):
         self.X = X
