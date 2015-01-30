@@ -2,6 +2,7 @@
 # Clustering Validation and Analysis
 
 import numpy as np
+import scipy.special as sp
 import pyprind
 import sys
 from ..cluster import Cluster
@@ -72,3 +73,21 @@ class CompareCluster(Cluster):
 		sval += size_ij/float(n) * np.log(size_ij * n/float(isize * jsize))
 
 	return(2.0 * sval / (self.entropy() + gc.entropy()))
+
+    def _calContingency(self, g):
+	""" Compute TP, FP, TN, and FN
+		for any pair of points.
+	"""
+	tp_fp, tp = 0.0, 0.0
+	for i,n in self.clsize[:,:]:
+	    if n >=2:
+		tp_fp += sp.binom(n, 2)
+		imemb = self._get_members(i)
+		gsub = g[imemb]
+		for j in np.unique(gsub):
+		    size_ij = np.sum(gsub == j)
+		    if size_ij >= 2:
+			tp += sp.binom(size_ij, 2)
+	self.tp = tp
+	self.fp = tp_p - tp
+
