@@ -41,8 +41,14 @@ def test_contingency():
     obj._contingency(g)
 
     #sys.stderr.write("TP:  %f\tFP:  %f\n"%(obj.tp, obj.fp))
+    #sys.stderr.write("FN:  %f\tTN:  %f\n"%(obj.fn, obj.tn))
     assert(obj.tp == 20)
     assert(obj.fp == 20)
-    
+    assert(obj.fn == 24)
+    assert(obj.tn == 72)
 
     obj._contingency(y)
+    assert(obj.tp == 40)
+    assert(obj.fp == 0)
+    assert(obj.fn == 0)
+    assert(obj.tn == 96)

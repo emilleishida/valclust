@@ -79,15 +79,35 @@ class CompareCluster(Cluster):
 		for any pair of points.
 	"""
 	tp_fp, tp = 0.0, 0.0
-	for i,n in self.clsize[:,:]:
-	    if n >=2:
-		tp_fp += sp.binom(n, 2)
-		imemb = self._get_members(i)
-		gsub = g[imemb]
-		for j in np.unique(gsub):
-		    size_ij = np.sum(gsub == j)
+	tn_fn, fn = 0.0, 0.0
+	for i,v1 in enumerate(self.clsize[:,:]):
+	    c1,n1 = v1
+	    imemb1 = self._get_members(c1)
+	    gsub1 = g[imemb1]
+	    if n1 >=2:
+		tp_fp += sp.binom(n1, 2)
+		for j in np.unique(gsub1):
+		    size_ij = np.sum(gsub1 == j)
 		    if size_ij >= 2:
 			tp += sp.binom(size_ij, 2)
+	    
+	    for v2 in self.clsize[i+1:,:]:
+		c2,n2 = v2
+		tn_fn += n1 * n2
+		imemb2 = self._get_members(c2)
+		gsub2 = g[imemb2]
+		for j1 in np.unique(gsub1):
+		    for j2 in np.unique(gsub2):
+			if j1 == j2:
+			    c1g1 = np.sum(gsub1 == j1)
+			    c2g2 = np.sum(gsub2 == j2)
+			    fn += c1g1*c2g2
+
+
 	self.tp = tp
 	self.fp = tp_fp - tp
 
+	self.tn = tn_fn - fn
+	self.fn = fn
+
+	return (None)
