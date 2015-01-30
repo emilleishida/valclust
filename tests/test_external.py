@@ -52,3 +52,12 @@ def test_contingency():
     assert(obj.fp == 0)
     assert(obj.fn == 0)
     assert(obj.tn == 96)
+
+def test_MCC():
+    y = np.array([1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3])
+    g = np.array([4,4,4,4,5,4,4,5,5,5,7,5,4,4,7,7,7])
+
+    obj = EV.CompareCluster(X=None, y=y)
+    res = obj.MCC(g)
+
+    assert(int(res*10000) == 2434)
