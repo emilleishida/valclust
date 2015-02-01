@@ -4,13 +4,13 @@ from distutils.core import setup
 files = ["things/*"]
 
 setup(name = "valclust",
-    version = "0.1.3",
+    version = "0.1.5",
     description = "Clustering Validation and Analysis",
     author = "Vahid Mirjalili",
     author_email = "vmirjalily@gmail.com",
     url = "https://github.com/mirjalil/valclust",
 
-    packages = ['valclust', 'valclust.InternalValidity', 'valclust.ExternalValidity',
+    packages = ['valclust', 'valclust.InternalValidity',
 	],
 
     #package *needs* these files.

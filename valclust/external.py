@@ -5,23 +5,23 @@ import numpy as np
 import scipy.special as sp
 import pyprind
 import sys
-from ..cluster import Cluster
+from .cluster import Cluster
 import editdist
 
 
 class CompareCluster(Cluster):
 
-
-    def __init__(self, X, y):
+    def __init__(self, X, y, g):
         self.set_data(X, y)
+	self.g = g
 
-    def clusterPurity(self, cinx, g):
+    def clusterPurity(self, cinx):
 	""" Compute the purity of an individual cluster cinx 
 	with respect to a given clustering solution 
 	g (which could be the ground-truth partitioning).
 	"""
 	cmembers = self._get_members(cinx)
-	memg = g[cmembers]
+	memg = self.g[cmembers]
 	sdict = {}
 	for k in memg:
 	    if k in sdict.keys():
@@ -33,18 +33,16 @@ class CompareCluster(Cluster):
 	return (largest / float(memg.shape[0]))
 
 
-    def totalPurity(self, g, singleton=-1):
+    def totalPurity(self):
         """ Compute the total purity measure w.r.t. g partitioning
-		singleton is the indicator for singletons.
 	"""
 	res, n = 0.0, 0
 	for k in np.unique(self.y):
-	   if (k != singleton):
-	       res += self.clusterPurity(k, g)
-	       n += 1
+	    res += self.clusterPurity(k)
+	    n += 1
 	return (res/n)
 
-    def normalizedMutualInfo(self, g):
+    def normalizedMutualInfo(self):
 	""" Compute Normalized Mutual Information (NMI) 
 		w.r.t. ground truth partitioning.
 	"""
@@ -52,7 +50,7 @@ class CompareCluster(Cluster):
 
 	y_uniq = self.unique()
 
-	gc = Cluster(X=None, y=g)
+	gc = Cluster(X=None, y=self.g)
 	g_uniq = gc.unique()
 
 	y_csize = self.cluster_sizes()
@@ -64,7 +62,7 @@ class CompareCluster(Cluster):
 	    imembers = self._get_members(i)
 
 	    isize = y_csize[y_csize[:,0]==i,1]
-	    gsub = g[imembers]
+	    gsub = self.g[imembers]
 
 	    for j in np.unique(gsub):
 		size_ij = np.sum(gsub == j)
@@ -74,15 +72,15 @@ class CompareCluster(Cluster):
 
 	return(2.0 * sval / (self.entropy() + gc.entropy()))
 
-    def MCC(self, g):
+    def MCC(self):
 	""" Compute Matthew's Correlation Coefficient:
 		MCC = (TP*TN - FP*FN) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
 	"""
-	self._contingency(g)
+	self._contingency()
 	tp,fp,tn,fn = self.tp, self.fp, self.tn, self.fn
 	return ((tp*tn - fp*fn)/np.sqrt((tp+fp)*(tp+fn)*(tn+fp)*(tn+fn)))
 
-    def _contingency(self, g):
+    def _contingency(self):
 	""" Compute TP, FP, TN, and FN
 		for any pair of points.
 	"""
@@ -91,31 +89,27 @@ class CompareCluster(Cluster):
 	for i,v1 in enumerate(self.clsize[:,:]):
 	    c1,n1 = v1
 	    imemb1 = self._get_members(c1)
-	    gsub1 = g[imemb1]
+	    gsub1 = self.g[imemb1]
 	    if n1 >=2:
 		tp_fp += sp.binom(n1, 2)
 		for j in np.unique(gsub1):
 		    size_ij = np.sum(gsub1 == j)
 		    if size_ij >= 2:
 			tp += sp.binom(size_ij, 2)
-	    
-	    for v2 in self.clsize[i+1:,:]:
-		c2,n2 = v2
-		tn_fn += n1 * n2
-		imemb2 = self._get_members(c2)
-		gsub2 = g[imemb2]
-		for j1 in np.unique(gsub1):
-		    for j2 in np.unique(gsub2):
-			if j1 == j2:
-			    c1g1 = np.sum(gsub1 == j1)
-			    c2g2 = np.sum(gsub2 == j2)
-			    fn += c1g1*c2g2
+		    size_j = np.sum(self.g == j)
+		    fn += size_ij * (size_j - size_ij)
+		    #print("%d %d %d   %d\t\t%d"%(j, size_j, size_ij, size_ij*(size_j-size_ij), fn))
+
+	    if (i < self.clsize.shape[0] - 1): 
+		tn_fn += n1 * np.sum(self.clsize[i+1:,1])
 
 
 	self.tp = tp
 	self.fp = tp_fp - tp
 
+	fn = fn / 2
 	self.tn = tn_fn - fn
 	self.fn = fn
 
+	#sys.stderr.write("TP: %.0f  FP: %.0f \t TN: %.0f  FN: %.0f\n"%(self.tp,self.fp,self.tn,self.fn))
 	return (None)

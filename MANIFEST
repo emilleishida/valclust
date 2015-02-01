@@ -3,8 +3,7 @@ README
 setup.py
 valclust/__init__.py
 valclust/cluster.py
-valclust/ExternalValidity/__init__.py
-valclust/ExternalValidity/comp_clusterings.py
+valclust/external.py
 valclust/InternalValidity/__init__.py
 valclust/InternalValidity/pdist_sampling.py
 valclust/InternalValidity/silhouette_sampling.py
