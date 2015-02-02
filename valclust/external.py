@@ -37,10 +37,16 @@ class CompareCluster(Cluster):
         """ Compute the total purity measure w.r.t. g partitioning
 	"""
 	res, n = 0.0, 0
+	wres, wsum = 0.0, 0.0
 	for k in np.unique(self.y):
-	    res += self.clusterPurity(k)
+	    p = self.clusterPurity(k)
+	    res += p
 	    n += 1
-	return (res/n)
+	    ksize = self.clsize[self.clsize[:,0] == k,1]
+	    wres += p*ksize
+	    wsum += ksize
+	return (res/n, wres/wsum)
+
 
     def normalizedMutualInfo(self):
 	""" Compute Normalized Mutual Information (NMI) 

@@ -4,8 +4,8 @@ import valclust.external as exv
 import sys
 
 def test_purity():
-    y = np.array([1,1,1,2,2,2,2])
-    g = np.array([5,5,5,7,7,9,9])
+    y = np.array([1,1,1,2,2,2,2,3])
+    g = np.array([5,5,5,7,7,9,9,5])
 
     obj = exv.CompareCluster(X=None, y=y, g=g)
 
@@ -16,8 +16,11 @@ def test_purity():
     r2 = obj.clusterPurity(2)
     assert (r2 == 0.5)
 
-    tot = obj.totalPurity()
-    assert (tot == 0.75)
+    r3 = obj.clusterPurity(3)
+    assert (r3 == 1.0)
+
+    tot,wpurity = obj.totalPurity()
+    assert (tot == 5/6.0 and wpurity==3/4.0)
 
 def test_NMI():
     y = np.array([1,1,1,2,2,2,2,3])
