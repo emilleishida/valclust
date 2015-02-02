@@ -4,7 +4,7 @@ __pycache__/
 
 # R files:
 *.RData
-*.RHistory
+*.Rhistory
 
 # C extensions
 *.so
