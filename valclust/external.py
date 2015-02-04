@@ -12,6 +12,7 @@ import editdist
 class CompareCluster(Cluster):
 
     def __init__(self, X, y, g):
+        assert (y.shape == g.shape)
         self.set_data(X, y)
 	self.g = g
 

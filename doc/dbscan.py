@@ -1,6 +1,8 @@
 import numpy as np
 import scipy
 import scipy.spatial
+import sklearn.cluster
+
 
 def DBSCAN(data, eps, min_pts):
     """ Clustering data using DBSCAN algorithm.
@@ -75,7 +77,7 @@ def main():
     d = np.concatenate([d1, d2, d3])
     print(d.shape)
 
-    np.savetxt('zzz/data.3clusters.dat', d)
+    #np.savetxt('zzz/data.3clusters.dat', d)
 
 
     import time
@@ -86,10 +88,24 @@ def main():
 
     print(end-start, cl.shape)
     for i, (core, neighb) in enumerate(cl):
-	print (i, len(core), len(neighb))
+	print (i, len(core), len(neighb), len(core) + len(neighb))
 
 
-    ConnectedComponents(d, 0.2)
+    dbs = sklearn.cluster.DBSCAN(eps=0.2, min_samples=20, metric='euclidean', algorithm='kd_tree', leaf_size=100)
+    start = time.time()
+    cl2 = dbs.fit_predict(d)
+    end = time.time()
+    print(end-start, cl2.shape)
+    for i in np.unique(cl2):
+        print (i, np.sum(cl2 == i))
+
+    dbs = sklearn.cluster.DBSCAN(eps=0.2, min_samples=20, metric='euclidean', algorithm='brute')
+    start = time.time()
+    cl2 = dbs.fit_predict(d)
+    end = time.time()
+    print(end-start, cl2.shape)
+
+    #ConnectedComponents(d, 0.2)
 
 if __name__ == "__main__":
     main()
