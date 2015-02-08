@@ -11,7 +11,10 @@ def test_largeData_MCC():
 
    obj = exv.CompareCluster(X=None, y=d[:,0], g=d[:,1])
 
-   sys.stderr.write("Num sing: %d" %obj._num_singletons())
+   sys.stderr.write("Num sing: %d\n" %obj._num_singletons())
 
+   obj.summary()
+
+   sys.stderr.write("N-Distinct %d\n" %(obj.n_distinct()))
 
    pass
