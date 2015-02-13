@@ -84,7 +84,7 @@ class Cluster(object):
 	    s -= k/nt * np.log(k/nt)
 	return(s)
 
-    def summary(self, sing_indicator=-1):
+    def summary(self):
         """ Gives a summary statistics on clusters.
 	"""
 	print ("Number of singletons: %d"%(self._num_singletons()))
