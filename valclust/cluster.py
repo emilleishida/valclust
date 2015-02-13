@@ -37,7 +37,7 @@ class Cluster(object):
 	"""
 	tup = np.unique(self.y, return_counts = True)
 
-	dsize = dict(np.asarrray(tup).T)
+	dsize = dict(np.asarray(tup).T)
 	return(dsize)
 
     def _get_members(self, cinx):
@@ -73,7 +73,7 @@ class Cluster(object):
 	"""Finding the number of singletons
 	   specified by indicator [default=-1]
 	"""
-        return (np.sum(self.clsize[:,1] == 1))
+        return (np.sum(np.array(self.clsize.values()) == 1))
 
     def entropy(self):
 	""" Computing the entropy of a clustering.
