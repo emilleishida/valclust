@@ -33,9 +33,12 @@ class Cluster(object):
     def cluster_sizes(self):
 	"""
 	Returns the sizes of each cluster in a numpy ndarray.
+	(or a dictionary)
 	"""
 	tup = np.unique(self.y, return_counts = True)
-	return(np.asarray(tup).T)
+
+	dsize = dict(np.asarrray(tup).T)
+	return(dsize)
 
     def _get_members(self, cinx):
 	"""
