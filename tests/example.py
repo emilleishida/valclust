@@ -17,8 +17,8 @@ def test_largeData_MCC():
 
    sys.stderr.write("N-Distinct %d\n" %(obj.n_distinct()))
 
-   for i in range(100):
-      sys.stderr.write("Cluster %3d :: Size %3d   Purity %.3f\n"%(i, obj.clsize[i,1], obj.clusterPurity(i+1)))
+   for i in range(10):
+      sys.stderr.write("Cluster %3d :: Size %3d   Purity %.3f\n"%(i, obj.ysize[i,1], obj.clusterPurity(i+1)))
 
 
    sys.stderr.write("Purity: %.3f   WeightedPurity: %.3f\n" %(obj.totalPurity()[0], obj.totalPurity()[1]))
