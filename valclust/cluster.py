@@ -19,7 +19,7 @@ class Cluster(object):
         self.X = X
         self.y = y
         self.n = y.shape[0]
-	self.clsize = self.cluster_sizes()
+	self.ysize, self.ydict = self.cluster_sizes()
 
     def n_distinct(self):
 	"""
@@ -30,15 +30,18 @@ class Cluster(object):
     def unique(self):
 	return(np.unique(self.y))
 
-    def cluster_sizes(self):
+    def cluster_sizes(self, arr=None):
 	"""
 	Returns the sizes of each cluster in a numpy ndarray.
 	(or a dictionary)
 	"""
-	tup = np.unique(self.y, return_counts = True)
+	if arr is None:
+	    arr = self.y
+	tup = np.unique(arr, return_counts = True)
 
-	dsize = dict(np.asarray(tup).T)
-	return(dsize)
+	asize = np.asarray(tup).T
+	dsize = dict(asize)
+	return(asize, dsize)
 
     def _get_members(self, cinx):
 	"""
@@ -73,14 +76,14 @@ class Cluster(object):
 	"""Finding the number of singletons
 	   specified by indicator [default=-1]
 	"""
-        return (np.sum(np.array(self.clsize.values()) == 1))
+        return (np.sum(np.array(self.ysize[:,1]) == 1))
 
     def entropy(self):
 	""" Computing the entropy of a clustering.
 	"""
 	s = 0.0
 	nt = float(self.n)
-	for k in self.clsize[:,1]:
+	for k in self.ysize[:,1]:
 	    s -= k/nt * np.log(k/nt)
 	return(s)
 

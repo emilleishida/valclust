@@ -15,6 +15,7 @@ class CompareCluster(Cluster):
         assert (y.shape == g.shape)
         self.set_data(X, y)
 	self.g = g
+	self.gsize, self.gdict = self.cluster_sizes(g)
 
     def clusterPurity(self, cinx):
 	""" Compute the purity of an individual cluster cinx 
@@ -43,7 +44,7 @@ class CompareCluster(Cluster):
 	    p = self.clusterPurity(k)
 	    res += p
 	    n += 1
-	    ksize = self.clsize[self.clsize[:,0] == k,1]
+	    ksize = self.ydict[k]
 	    wres += p*ksize
 	    wsum += ksize
 	return (res/n, wres/wsum)
@@ -55,25 +56,19 @@ class CompareCluster(Cluster):
 	"""
 	n = self.n
 
-	y_uniq = self.unique()
-
 	gc = Cluster(X=None, y=self.g)
-	g_uniq = gc.unique()
-
-	y_csize = self.cluster_sizes()
-	g_csize = gc.cluster_sizes()
-
+	y_uniq = self.unique()
 
 	sval = 0.0
 	for i in y_uniq:
 	    imembers = self._get_members(i)
 
-	    isize = y_csize[y_csize[:,0]==i,1]
+	    isize = self.ydict[i]
 	    gsub = self.g[imembers]
 
 	    for j in np.unique(gsub):
 		size_ij = np.sum(gsub == j)
-		jsize = g_csize[g_csize[:,0]==j,1]
+		jsize = self.gdict[j]
 		#print("%d %d \t %d %d --> %d  %f" %(i, isize, j, jsize, size_ij, size_ij * n/float(isize * jsize)))
 		sval += size_ij/float(n) * np.log(size_ij * n/float(isize * jsize))
 
@@ -93,7 +88,7 @@ class CompareCluster(Cluster):
 	"""
 	tp_fp, tp = 0.0, 0.0
 	tn_fn, fn = 0.0, 0.0
-	for i,v1 in enumerate(self.clsize[:,:]):
+	for i,v1 in enumerate(self.ysize[:,:]):
 	    c1,n1 = v1
 	    imemb1 = self._get_members(c1)
 	    gsub1 = self.g[imemb1]
@@ -107,8 +102,8 @@ class CompareCluster(Cluster):
 		    fn += size_ij * (size_j - size_ij)
 		    #print("%d %d %d   %d\t\t%d"%(j, size_j, size_ij, size_ij*(size_j-size_ij), fn))
 
-	    if (i < self.clsize.shape[0] - 1): 
-		tn_fn += n1 * np.sum(self.clsize[i+1:,1])
+	    if (i < self.ysize.shape[0] - 1): 
+		tn_fn += n1 * np.sum(self.ysize[i+1:,1])
 
 
 	self.tp = tp
