@@ -92,7 +92,7 @@ class CompareCluster(Cluster):
 	    c1,n1 = v1
 	    imemb1 = self._get_members(c1)
 	    gsub1 = self.g[imemb1]
-	    if n1 >=2:
+	    if n1 >=1:
 		tp_fp += sp.binom(n1, 2)
 		for j in np.unique(gsub1):
 		    size_ij = np.sum(gsub1 == j)
@@ -101,7 +101,7 @@ class CompareCluster(Cluster):
 		    size_j = np.sum(self.g == j)
 		    fn += size_ij * (size_j - size_ij)
 		    #print("%d %d %d   %d\t\t%d"%(j, size_j, size_ij, size_ij*(size_j-size_ij), fn))
-
+	
 	    if (i < self.ysize.shape[0] - 1): 
 		tn_fn += n1 * np.sum(self.ysize[i+1:,1])
 

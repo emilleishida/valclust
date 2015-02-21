@@ -66,8 +66,6 @@ def test_singletons():
     obj = exv.CompareCluster(X=None, y=y, g=g)
     obj._contingency()
 
-    #sys.stderr.write("TP:  %f\tFP:  %f\n"%(obj.tp, obj.fp))
-    #sys.stderr.write("FN:  %f\tTN:  %f\n"%(obj.fn, obj.tn))
     assert(obj.tp == 10)
     assert(obj.fp == 0)
     assert(obj.fn == 3)
