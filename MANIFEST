@@ -2,6 +2,7 @@
 README
 setup.py
 doc/dbscan.py
+tests/example.py
 tests/test_cluster.py
 tests/test_external.py
 tests/test_internal.py

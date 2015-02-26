@@ -11,6 +11,13 @@ Clustering Validation and Analysis
     3. Relative indecies: comparing the clustering results obtained from different algorithms, or dissimilarity measures 
 
 
+## External Indecies:
+
+  * Purity	
+  * NMI (Normalized Mutual Information - information theoretic)
+  * NID 
+  * MCC (Mathew's Correlation Coefficient)
+
 ## Internal Indecies:
 
   * Silhouette Index
