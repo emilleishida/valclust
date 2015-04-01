@@ -12,14 +12,32 @@ class Cluster(object):
 
     """
 
-    def __init__(self, X=None, y=None):
-	self.set_data(X, y)
+    def __init__(self, X=None, y=None, g=None):
+	self.set_data(X, y, g)
 
-    def set_data(self, X, y):
+    def set_data(self, X, y, g=None):
         self.X = X
         self.y = y
+	self.g = g
         self.n = y.shape[0]
+	#if conv_singletons:
+	#    self.convert_singletons()
+
 	self.ysize, self.ydict = self.cluster_sizes()
+
+    def convert_singletons(self):
+	"""
+	Convert non-clusters (-1) to singletons
+	"""
+	cmax = np.max(self.y)
+	for i,y in enumerate(self.y):
+	   if y == -1:
+		self.y[i] = cmax + i
+	gmax = np.max(self.g)
+        for i,g in enumerate(self.g):
+           if g == -1:
+                self.g[i] = gmax + i
+
 
     def n_distinct(self):
 	"""

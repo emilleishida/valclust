@@ -72,6 +72,19 @@ def test_singletons():
     assert(obj.tn == 15)
 
 
+def test_convert_singletons():
+    y = np.array([-1,-1,-1,2,2,2,2,2])
+    g = np.array([4,4,4,7,7,7,7,7])
+
+    obj = exv.CompareCluster(X=None, y=y, g=g)
+    obj._contingency()
+
+    #assert(obj.tp == 10)
+    #assert(obj.fp == 0)
+    #assert(obj.fn == 3)
+    #assert(obj.tn == 15)
+
+
 def test_MCC():
     y = np.array([1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3])
     g = np.array([4,4,4,4,5,4,4,5,5,5,7,5,4,4,7,7,7])

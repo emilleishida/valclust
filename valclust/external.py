@@ -13,8 +13,7 @@ class CompareCluster(Cluster):
 
     def __init__(self, X, y, g):
         assert (y.shape == g.shape)
-        self.set_data(X, y)
-	self.g = g
+        self.set_data(X, y, g)
 	self.gsize, self.gdict = self.cluster_sizes(g)
 
     def clusterPurity(self, cinx):
