@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>valclust by mirjalil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">valclust</h1>
+      <h2 class="project-tagline">Clustering Validation and Analysis</h2>
+      <a href="https://github.com/mirjalil/valclust" class="btn">View on GitHub</a>
+      <a href="https://github.com/mirjalil/valclust/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/mirjalil/valclust/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h3>
+<a id="welcome-to-valclust-page" class="anchor" href="#welcome-to-valclust-page" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to Valclust Page.</h3>
+
+<p>Clustering Validation and Analysis</p>
+
+<ul>
+<li>
+<p>Different Types of Cluster Validity Indecies:</p>
+
+<ol>
+<li>External Indecies: comparing the clustering results with the <em>a priori</em> known clusters</li>
+<li>Internal indecies: measuring the quality of clusterings without comparing to any other clustering solution</li>
+<li>Relative indecies: comparing the clustering results obtained from different algorithms, or dissimilarity measures </li>
+</ol>
+</li>
+</ul>
+
+<h2>
+<a id="external-indecies" class="anchor" href="#external-indecies" aria-hidden="true"><span class="octicon octicon-link"></span></a>External Indecies:</h2>
+
+<ul>
+<li>Purity<br>
+</li>
+<li>NMI (Normalized Mutual Information - information theoretic)</li>
+<li>NID </li>
+<li>MCC (Mathew's Correlation Coefficient)</li>
+</ul>
+
+<h2>
+<a id="internal-indecies" class="anchor" href="#internal-indecies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Internal Indecies:</h2>
+
+<ul>
+<li>Silhouette Index</li>
+<li>Davis-Bouldin Index</li>
+<li>Calinski-Harabasz Index</li>
+<li>Dunn Index</li>
+<li>RMSSTD Index</li>
+<li>Gap Statistic (finding the number of clusters)</li>
+</ul>
+
+<h3>
+<a id="similarity-measures-between-different-groupings" class="anchor" href="#similarity-measures-between-different-groupings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Similarity Measures between Different Groupings</h3>
+
+<ul>
+<li>Cosine Similarity or Correlation </li>
+<li>Matching Coefficient</li>
+<li>Jaccard Coefficient</li>
+</ul>
+
+<h2>
+<a id="clusterseparation" class="anchor" href="#clusterseparation" aria-hidden="true"><span class="octicon octicon-link"></span></a>clusterSeparation</h2>
+
+<ul>
+<li>Falls within the category of internal indecies</li>
+<li>Separability and compactness of clusters</li>
+</ul>
+
+<p>Measuring te quality of clusterings by calculating the intra-cluster and inter-cluster distances.</p>
+
+<p><strong>Example: Internal Validity</strong></p>
+
+<pre><code>import numpy as np
+from valclust.InternalValidity import PairwiseDistanceSampler as pds
+
+np.random.seed(1234)
+
+d1 = np.random.multivariate_normal(mean=[-1,1], cov=[[1, 0],[0, 1]], size=3)
+d2 = np.random.multivariate_normal(mean=[2,-2], cov=[[1, 0],[0, 1]], size=4)
+
+d = np.vstack((d1, d2))
+y = np.array([1,1,1, 2,2,2,2])
+
+sam_obj = pds(d, y)  # sampler object
+
+# distance among points within cluster 1
+ds1_intra = sam_obj.intra_sampler(1, size=None) 
+# distance bwtween points from cluster 1 and the rest
+ds1_inter = sam_obj.inter_sampler(1, size=None)
+
+</code></pre>
+
+<p>Output:</p>
+
+<pre><code>&gt;&gt;&gt; ds1_intra
+array([ 0.        ,  2.46500264,  0.        ])
+
+&gt;&gt;&gt; ds1_inter
+array([ 4.17855077,  5.17794181,  5.176349  ,  7.17877856,  4.17855077,
+        4.11556509,  6.43752761,  5.17794181,  7.17877856,  4.78430904,
+        7.53358227,  7.17877856])
+</code></pre>
+
+<p><strong>Example: External Validaity Indecies</strong></p>
+
+<pre><code>import numpy as np
+import valclust
+import valclust.ExternalValidity as EV
+
+y = np.array([1,1,1,2,2,2,2,-1])
+g = np.array([5,5,5,7,7,9,9,2])
+
+obj = EV.CompareCluster(X=None, y=y)
+
+for i in np.unique(y):
+   res = obj.clusterPurity(i, g)
+   print("Purity for cluster %d ==&gt; %.4f"%(i, res))
+</code></pre>
+
+<p>Output: </p>
+
+<pre><code>Purity for cluster -1 ==&gt; 1.0000
+Purity for cluster 1 ==&gt; 1.0000
+Purity for cluster 2 ==&gt; 0.5000
+
+
+</code></pre>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/mirjalil/valclust">valclust</a> is maintained by <a href="https://github.com/mirjalil">mirjalil</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-52536354-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
+
